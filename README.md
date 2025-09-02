@@ -9,3 +9,11 @@
 由于校园、公司等网络原因，会将github的某些端口屏蔽，导致通过hppts方式进行push和pull时，会出现connect failed的问题，可以通过创建ssh key的方式，使用ssh进行通信，其中xxx是本机的私钥，xxx.pub是上传到github的公钥，通过公钥和私钥匹配识别通信。
 
 这句话是为了测试通过本地维护博客的方式进行提交。
+
+## 第三周
+### 2025.9.2
+今天学习了关于《Attention is all you need》的论文，还没有看原文，主要看了博主的详解笔记，知道了关于Transformer最重要的部分attention，attention最大的优势就是既具有上下文之间的关联，也不会像CNN那样需要大量的显存，并且不想LSTM那样需要基于上一个状态进行预测，能够进行并行。
+大致计算方式如下：
+1.输入X：[batch_size, seq_len, d_model]，其中batch_size是batch的大小，seq_len是序列的长度，d_model是输入的维度（embedding,这个决定了每个token能够存储的信息，包括上下文的关联强度之类的，并且在多头注意力机制中，这些embedding会被均分给每个头）。
+2.最关键的QKV矩阵是通过X经过线性变换矩阵W^Q,W^K,W^V得到,这三个矩阵属于可学习参数，可以通过反向传播进行训练。
+3.Q和K进行计算得到新的矩阵，再进行softmax，得到权重矩阵，最后与V进行矩阵乘法，得到新的矩阵，这个矩阵就是最终的输出矩阵。
